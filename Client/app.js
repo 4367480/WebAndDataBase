@@ -341,6 +341,14 @@ var LoadTasks = function(url){
 
 
 	});
+
+	settasks();
 }
 
-LoadTasks("todos.json");
+$(document).ajaxStop(function() {
+  settasks();
+});
+
+window.onload = function() {
+	LoadTasks("todos.json");
+}
