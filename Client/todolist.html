@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+	<title>TODO Application</title>
+	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+	<script src = "app.js"></script>
+</head>
+<header>
+	<!--Shows the Logo/Text-->
+	<div class="header_1"> 
+		<h1>TODO Application</h1>
+	</div>
+	<!--Shows: Sign up | FAQ | Support -->
+	<div class="header_2">
+		<nav>
+			<a href="#">Log out</a> |
+			<a href="#">FAQ</a> |
+			<a href="#">Support</a>
+		</nav>
+	</div>
+</header>
+
+<main>
+	<!--Sort options-->
+	<div class="main_left">
+		<h2>Sort options</h2>
+
+		<!--Sort options-->
+		<div class="main_left_sortoptions">
+			<button id="sort_newold" onclick = "SortNewTop()">Newest</button> 
+			<button id="sort_oldnew" onclick = "SortOldTop()">Oldest</button>
+		</div>
+	</div>
+
+	<!--Tasks-->
+	<div class="main_middle">
+		<!--Add new task-->
+		<div class="main_middle_newtask">
+			<h1>Add new task</h1> 
+			<form> 
+			<input type="text" id="f_task"> 
+			<input type="button" value="Add new task" id="addnewTaskbutton" onclick="createtask(
+			document.getElementById('f_task').value,
+			document.getElementById('f_tag').value,
+			document.getElementById('f_priority').value,  
+			document.getElementById('f_duedate').value, 
+			document.getElementById('f_reminder').value, 
+			document.getElementById('f_note').value)"> 
+			</form>
+		</div>
+
+		<!--Options for new task-->
+		<div class="main_middle_options"> 
+		<form> 
+			Tag: <input type="text" id="f_tag">	
+			Priority: <input type="number" id="f_priority" min="1" max="5">	
+			Duedate: <input type="date" id="f_duedate">  
+			Reminder: <input type="date" id="f_reminder">
+			Note: <input type="text" id="f_note">
+		</form> 
+		</div>
+
+		<!--Display of tasks-->
+		<h3> Active Tasks</h3>
+		<div id="main_middle_activetasks"> 
+			
+		</div>
+
+		<h3> Completed Tasks</h3>
+		<div id="main_middle_completedtasks"> 
+			
+		</div>
+	</div>
+</main>
+
+<footer>
+	<div class="contact">
+		<h5>Contact Us</h5>
+		<p>TODO Application!</p>
+		<p>Mekelweg 4</p>
+		<p>Delft, 1234AB</p>
+	</div>
+	<div class="sitemap">
+		<h5>Sitemap</h5>
+		<ul>
+			<li><a href="#">Home</a></li>
+			<li><a href="#">About Us</a></li>
+			<li><a href="#">Privacy</a></li>
+			<li><a href="#">Support</a></li>
+			<li><a href="#">FAQ</a></li>
+			<li><a href="#">Careers</a></li>
+		</ul>
+	</div>
+</footer>
+
+</html>
