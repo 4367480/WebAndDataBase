@@ -24,22 +24,24 @@ app.get("/todos.json", function (req, res) {
 
 app.post("/addtodo", function (req, res) {
     var newTodo = req.body;
+    tasks.push(newTodo);
 
-/*
-    if(newTodo === undefined || newTodo == undefined) {
-        res.json({"message": "败北"});
-    } else {
-        res.json({"message": "胜利"});
-    }
-*/
-   
-   
-    fs.writeFile("newtodo.json", newTodo[0], function(err) {
+    fs.writeFile("newtodo.json", JSON.stringify(tasks), function(err) {
         if(err) {
             res.json({"message":"Storing data failed"});
         } else {
             res.json({"message":"Data stored successfully"});
        }
     });
+
+});
+
+app.post("/removetodo", function (req, res) {
+    var newTodo = req.body;
     
+    for(var i = 0; i < tasks.length; i++) {
+        console.log("We're still going" + i);
+    }
+
+
 });

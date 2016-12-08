@@ -1,7 +1,5 @@
 //Global variable
 var globaltasknumber = 0;
-var globalactivetasks = 0;
-var globalcompletedtasks = 0;
 var listactivetasks = [];
 var listcompletedtasks = [];
 
@@ -38,13 +36,10 @@ function createtask(taskname, tasktag, taskpriority, duedate, reminder, note){
             dataType: 'json',
             success: function (data) {
                 console.log(data);
+                LoadTasks("todos.json");
             },
-            data: JSON.stringify(taskJSON)
+            data: taskJSON
         });
-
-		//Update task
-		LoadTasks("todos.json");
-
 
 		//Remove text from textboxes
 		document.getElementById("f_task").value = "";
@@ -61,7 +56,6 @@ function createtask(taskname, tasktag, taskpriority, duedate, reminder, note){
 var newtaskHTML = function(taskname, tasktag, taskpriority, duedate, reminder, note) {
 	//Create the task itself
 	var newtask = basictask(taskname, tasktag, taskpriority, duedate, reminder, note);
-	globalactivetasks++;
 
 	//Create active button
 	var cb_active = active_checkbox(newtask);
@@ -83,7 +77,12 @@ var newtaskHTML = function(taskname, tasktag, taskpriority, duedate, reminder, n
 
 //Checks if textbox is empty or only contains spaces
 function textboxhastext(id){
-	return !(id.length === 0 || !id.trim());
+	try{
+		return !(id.length === 0 || !id.trim());
+	} catch (err){
+		return false;
+	}
+	
 }
 
 //Function to create task
@@ -92,7 +91,7 @@ var basictask = function(task_name, task_tag, task_priority, task_due, task_remi
 	paragraph.id = "paragraph" + globaltasknumber;						//Set id
 
 	//Add data
-	paragraph.dataset.id = globalactivetasks;
+	paragraph.dataset.id = globaltasknumber;
 	paragraph.dataset.taskname = textboxhastext(task_name)?task_name:null;
 	paragraph.dataset.tasktag = textboxhastext(task_tag)?task_tag:null;
 	paragraph.dataset.taskpriority = textboxhastext(task_priority)?task_priority:null;
@@ -110,7 +109,7 @@ var basictask = function(task_name, task_tag, task_priority, task_due, task_remi
 var active_checkbox = function(newtask) {
 	var cb_active = document.createElement("input");		//Create input		
 	cb_active.type = "checkbox";							//Set type
-	
+
 	//Assign function to set task inactive or active
 	cb_active.onclick = function () {
 		//Check for checked or unchecked
@@ -121,8 +120,6 @@ var active_checkbox = function(newtask) {
 				if(listactivetasks[i].dataset.id == newtask.dataset.id) {
 					listactivetasks.splice(i,1);
 					listcompletedtasks.push(newtask);
-					globalactivetasks--;
-					globalcompletedtasks++;
 					break;
 				}
 			}
@@ -132,8 +129,6 @@ var active_checkbox = function(newtask) {
 				if(listcompletedtasks[i].dataset.id == newtask.dataset.id) {
 					listcompletedtasks.splice(i,1);
 					listactivetasks.push(newtask);
-					globalactivetasks++;
-					globalcompletedtasks--;
 					break;
 				}
 			}
@@ -235,7 +230,6 @@ var button_remove = function(newtask) {
 			for(var i = 0; i < listactivetasks.length; i++) {
 				if(listactivetasks[i].dataset.id == newtask.dataset.id) {
 					listactivetasks.splice(i,1);
-					globalactivetasks--;
 					break;
 				}
 			}
@@ -243,7 +237,6 @@ var button_remove = function(newtask) {
 			for(var i = 0; i < listcompletedtasks.length; i++) {
 				if(listcompletedtasks[i].dataset.id == newtask.dataset.id) {
 					listcompletedtasks.splice(i,1);
-					globalcompletedtasks--;
 					break;
 				}
 			}
@@ -343,12 +336,12 @@ var LoadTasks = function(url){
 	$.getJSON(url, function (response) {
 		response.forEach(function(task){
 			//Set globaltasknumber
-			if(globaltasknumber < task.id) {
-				globaltasknumber = task.id  + 1;
+			if(parseInt(globaltasknumber) <= parseInt(task.id)) {
+				globaltasknumber = parseInt(parseInt(task.id) + 1);
 			}
-
 			var newtask = newtaskHTML(task.taskname, task.tasktag, task.taskpriority,task.taskduedate,task.reminder,task.note );
-			if(task.taskactive == true) {
+			newtask.dataset.id = task.id;
+			if(task.taskactive == true || task.taskactive == "true") {
 				listactivetasks.push(newtask);
 			} else {
 				newtask.dataset.taskactive = false;
@@ -364,7 +357,7 @@ var LoadTasks = function(url){
 
 function createJSON(task) {
 	var item = {
-		id: task.dataset.id,
+		id: parseInt(task.dataset.id),
 		taskname: task.dataset.taskname,
 		tasktag: task.dataset.tasktag,
 		taskpriority: task.dataset.taskpriority,
