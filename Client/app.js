@@ -26,11 +26,25 @@ var listcompletedtasks = [];
 function createtask(taskname, tasktag, taskpriority, duedate, reminder, note){
 	//Check if task has a taskname
 	if(textboxhastext(taskname)){
-		var newtask = newtaskHTML(taskname, tasktag, taskpriority, duedate, reminder, note);
+		//Create task
+		var newtask = basictask(taskname, tasktag, taskpriority, duedate, reminder, note);
+		//Convert to JSON
+		var taskJSON = createJSON(newtask);
 
-		//Add tasks to active task list
-		listactivetasks.push(newtask);
-		settasks();
+		//Post task
+		$.ajax({
+            url: '/addtodo',
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+            },
+            data: JSON.stringify(taskJSON)
+        });
+
+		//Update task
+		LoadTasks("todos.json");
+
 
 		//Remove text from textboxes
 		document.getElementById("f_task").value = "";
@@ -323,6 +337,9 @@ function SortOldTop() {
 //Function to read JSON
 var LoadTasks = function(url){
 	"use strict";
+	listactivetasks = [];
+	listcompletedtasks = [];
+
 	$.getJSON(url, function (response) {
 		response.forEach(function(task){
 			//Set globaltasknumber
@@ -343,6 +360,23 @@ var LoadTasks = function(url){
 	});
 
 	settasks();
+}
+
+function createJSON(task) {
+	var item = {
+		id: task.dataset.id,
+		taskname: task.dataset.taskname,
+		tasktag: task.dataset.tasktag,
+		taskpriority: task.dataset.taskpriority,
+		taskdue: task.dataset.taskdue,
+		reminder: task.dataset.reminder,
+		note: task.dataset.note,
+		taskactive: task.dataset.taskactive
+	};
+
+	//item = JSON.stringify(item);
+
+    return item;
 }
 
 $(document).ajaxStop(function() {
