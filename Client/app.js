@@ -178,41 +178,60 @@ var button_edit = function(newtask){
 		var text_taskname = document.createTextNode("Taskname:");
 		var field_taskname = document.createElement("input");
 		field_taskname.type = "text";
-		edit_field.innerHTML += text_taskname.innerHTML + field_taskname.innerHTML;
+		field_taskname.id = "field_taskname" + newtask.dataset.id;
+		field_taskname.value = newtask.dataset.taskname;
+		edit_field.appendChild(text_taskname);
+		edit_field.appendChild(field_taskname);
 
 		//Create tag field
 		var text_tag = document.createTextNode("Tag:");
 		var field_tag = document.createElement("input");
 		field_tag.type = "text";
-		//edit_field.innerHTML += text_taskname.innerHTML + field_taskname.innerHTML;
+		field_tag.id = "field_tag" + newtask.dataset.id;
+		field_tag.value = newtask.dataset.tasktag;
+		edit_field.appendChild(text_tag);
+		edit_field.appendChild(field_tag);
 
 		//Create tag field
 		var text_priority = document.createTextNode("Priority:");
 		var field_priority = document.createElement("input");
 		field_priority.type = "number";
-		//edit_field.innerHTML += text_taskname.innerHTML + field_taskname.innerHTML;
+		field_priority.id = "field_priority" + newtask.dataset.id;
+		field_priority.value = newtask.dataset.taskpriority;
+		edit_field.appendChild(text_priority);
+		edit_field.appendChild(field_priority);
 
 		//Create duedate field
 		var text_duedate = document.createTextNode("Duedate:");
 		var field_duedate = document.createElement("input");
 		field_duedate.type = "date";
-		//edit_field.innerHTML += text_taskname.innerHTML + field_taskname.innerHTML;
+		field_duedate.id = "field_duedate" + newtask.dataset.id;
+		field_duedate.value = newtask.dataset.taskdue;
+		edit_field.appendChild(text_duedate);
+		edit_field.appendChild(field_duedate);
 
 		//Create reminder field
 		var text_reminder = document.createTextNode("Reminder:");
 		var field_reminder = document.createElement("input");
 		field_reminder.type = "date";
-		//edit_field.innerHTML += text_taskname.innerHTML + field_taskname.innerHTML;
+		field_reminder.id = "field_reminder" + newtask.dataset.id;
+		field_reminder.value = newtask.dataset.reminder;
+		edit_field.appendChild(text_reminder);
+		edit_field.appendChild(field_reminder);
 
 		//Create reminder field
 		var text_note = document.createTextNode("Note:");
 		var field_note = document.createElement("input");
 		field_note.type = "text";
-		//edit_field.innerHTML += text_taskname.innerHTML + field_taskname.innerHTML;
+		field_note.id = "field_note" + newtask.dataset.id;
+		field_note.value = newtask.dataset.note;
+		edit_field.appendChild(text_note);
+		edit_field.appendChild(field_note);
 
+		var savebtn = button_save(newtask, field_taskname.id, field_tag.id, field_priority.id, 
+			field_duedate.id, field_reminder.id, field_note.id);
+		edit_field.appendChild(savebtn);
 		newtask.appendChild(edit_field);
-
-
 
 		//Create input			
 		return false;
@@ -226,21 +245,18 @@ var button_remove = function(newtask) {
 	btn_remove.appendChild(document.createTextNode("Remove"));	//Add text to button
 
 	btn_remove.onclick = function(){ 							//Create function remove
-		if(newtask.dataset.taskactive == "true") {
-			for(var i = 0; i < listactivetasks.length; i++) {
-				if(listactivetasks[i].dataset.id == newtask.dataset.id) {
-					listactivetasks.splice(i,1);
-					break;
-				}
-			}
-		} else {
-			for(var i = 0; i < listcompletedtasks.length; i++) {
-				if(listcompletedtasks[i].dataset.id == newtask.dataset.id) {
-					listcompletedtasks.splice(i,1);
-					break;
-				}
-			}
-		}
+		var taskJSON = createJSON(newtask);
+
+		$.ajax({
+            url: '/removetodo',
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                LoadTasks("todos.json");
+            },
+            data: taskJSON
+        });
 		settasks();
 	};
 	return btn_remove;
@@ -248,15 +264,37 @@ var button_remove = function(newtask) {
 }
 
 //Creates a save button based on a btn_id and paragraph_id
-var button_save = function(btn_id, paragraphid) {
+var button_save = function(originaltask, field_id, tag_id, priority_id, 
+			duedate_id, reminder_id, note_id) {
 	var btn_save = document.createElement("button");			//Create button
-	btn_remove.appendChild(document.createTextNode("Remove"));	//Add text to button
-	btn_remove.onclick = function(){ 							//Create function remove
-		var element = document.getElementById(paragraphid);
-		element.parentNode.removeChild(element);
-		return false;
+	btn_save.appendChild(document.createTextNode("Save"));	//Add text to button
+	btn_save.onclick = function(){ 							//Create function remove
+		
+		var item = {
+		id: parseInt(originaltask.dataset.id),
+		taskname: document.getElementById(field_id).value,
+		tasktag: document.getElementById(tag_id).value,
+		taskpriority:  document.getElementById(priority_id).value,
+		taskdue:  document.getElementById(duedate_id).value,
+		reminder:  document.getElementById(reminder_id).value,
+		note:  document.getElementById(note_id).value,
+		taskactive: originaltask.dataset.taskactive
+		};
+
+
+		$.ajax({
+            url: '/edittodo',
+            type: 'post',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                LoadTasks("todos.json");
+            },
+            data: item
+        });
+
 	};
-	return btn_remove;
+	return btn_save;
 
 }
 

@@ -37,11 +37,44 @@ app.post("/addtodo", function (req, res) {
 });
 
 app.post("/removetodo", function (req, res) {
-    var newTodo = req.body;
+    var removeTodo = req.body;
     
     for(var i = 0; i < tasks.length; i++) {
-        console.log("We're still going" + i);
+        if(tasks[i].id == removeTodo.id) {
+            tasks.splice(i,1);
+            res.json({"message":"Tasks deleted"});
+            break;
+        }
     }
+
+    fs.writeFile("newtodo.json", JSON.stringify(tasks), function(err) {
+        if(err) {
+            console.log("Storing data failed");
+        } else {
+            console.log("Data stored successfully");
+       }
+    });
+
+});
+
+app.post("/edittodo", function (req, res) {
+    var removeTodo = req.body;
+    
+    for(var i = 0; i < tasks.length; i++) {
+        if(tasks[i].id == removeTodo.id) {
+            tasks[i] = removeTodo;
+            res.json({"message":"Tasks has been eddited"});
+            break;
+        }
+    }
+    
+    fs.writeFile("newtodo.json", JSON.stringify(tasks), function(err) {
+        if(err) {
+            console.log("Storing data failed");
+        } else {
+            console.log("Data stored successfully");
+       }
+    });
 
 
 });
