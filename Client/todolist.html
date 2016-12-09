@@ -1,10 +1,52 @@
 <!doctype html>
 <html>
+<style>
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes example {
+    from {color: lightblue;}
+    to {color: green;}
+}
+
+/* Standard syntax */
+@keyframes example {
+    from {color: lightblue;}
+    to {color: green;}
+}
+
+div.header_1 {
+	text-transform: uppercase;
+	width: 1600px;
+    height: 50px;
+    color: green;
+    -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+    animation-name: example;
+    animation-duration: 4s;
+}
+
+div.header_top{
+	text-align: center;
+	width: auto;
+	position: relative;
+    height: auto;
+    background-color: lightblue;
+    overflow:auto;
+	margin:20px;
+}
+
+div.active_tasks{
+	color:orange;
+}
+div.completed_tasks{
+	color: green;
+}
+</style>
 <head>
 	<title>TODO Application</title>
 </head>
 <header>
 	<!--Shows the Logo/Text-->
+	<div class="header_top">
 	<div class="header_1"> 
 		<h1>TODO Application</h1>
 	</div>
@@ -15,6 +57,8 @@
 			<a href="#">FAQ</a> |
 			<a href="#">Support</a>
 		</nav>
+		<br>
+	</div>
 	</div>
 </header>
 

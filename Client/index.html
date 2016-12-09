@@ -1,22 +1,117 @@
 <!doctype html>
 <html>
+<style>
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes example {
+    from {color: lightblue;}
+    to {color: green;}
+}
+
+/* Standard syntax */
+@keyframes example {
+    from {color: lightblue;}
+    to {color: green;}
+}
+
+body {
+	text-align: center;	
+}
+
+h1.top {
+	text-transform: uppercase;
+	width: 1600px;
+    height: 30px;
+    color: green;
+    -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+    animation-name: example;
+    animation-duration: 4s;
+}
+
+h1.top:hover {
+	background-color: blue;
+}
+
+div.header_2:active{
+	background-color: yellow;
+}
+
+div.header_2::before{
+	content: "| "
+}
+
+div.header_2::after{
+	content: " |"
+}
+
+div.header {
+	width: auto;
+	position: relative;
+    height: auto;
+    background-color: lightblue;
+    overflow:auto;
+	margin:20px;
+}
+
+body{
+  background: url(notepad.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+div.main_left {
+	position: absolute;
+	left: 23%;
+	top: 40%;
+}
+
+div.left {
+	display: inline-block;
+	text-align: left;
+}
+
+div.main_right {
+	position: absolute;
+	left: 50%;
+	top: 40%;
+}
+
+div.contact {
+	position: absolute;
+	left: 90%;
+	top: 86%;
+}
+
+div.sitemap {
+	position: absolute;
+	left: 17%;
+	top: 80%;
+	
+	margin:20px;
+}
+
+</style>
 <head>
 	<title>Splashpage TODO Application</title>
 </head>
-<header>
-	<!--Shows the Logo/Text-->
+</header>
+<!--Shows the Logo/Text-->
+	<div class="header"> 
 	<div class="header_1"> 
-		<h1>Splashpage TODO Application</h1>
-	</div>
+		<h1 class="top">TODO Application</h1>
+		</div>
 	<!--Shows: Sign up | FAQ | Support -->
 	<div class="header_2">
-		<nav>
 			<a href="#">Sign Up!</a> |
 			<a href="#">FAQ</a> |
 			<a href="#">Support</a>
-		</nav>
+			
+	</div>	
+	<p>		
 	</div>
-</header>
+</div>
 
 <main>
 <span>
@@ -26,11 +121,11 @@
 		<p>Simply the best</p>
 
 		<h3>Here is why you need this application:</h3>
-		<ul>
-			<li>It fits your lifestyle</li>
-			<li>It's awesome</li>
-			<li>It rocks your world</li>
-		</ul>
+		<div class="left">
+			It fits your lifestyle
+			It's awesome
+			It rocks your world
+		</div>
 		<!-- <img src="notepad.jpg" alt="an image of a notepad"> -->
 	</div>
 	<!--Log in or sign up-->
@@ -38,8 +133,7 @@
 		<div class="main_right_login"> 
 			<form action="X1"
 			formmethod="post">
-				Username: <input type="text" name="f_username"><br>
-				<input type="submit" value="Login">
+				Username: <input type="text" name="f_username"><br>				
 			</form>	
 		</div>
 
@@ -47,7 +141,7 @@
 			<form action="X2"
 			formmethod="post">
 				Password: <input type="text" name="f_password"><br>
-				<input type="submit" value="Create new Account", >
+				<input type="submit" value="Login"><input type="submit" value="Create new Account", >
 
 			</form>	
 		</div>
@@ -58,20 +152,20 @@
 
 <footer>
 	<div class="contact">
-		<h5>Contact Us</h5>
-		<p>TODO Application!</p>
-		<p>Mekelweg 4</p>
-		<p>Delft, 1234AB</p>
+		<p><b>Contact Us</b></p>
+		TODO Application! <br>
+		Mekelweg 4 <br>
+		Delft, 1234AB
 	</div>
 	<div class="sitemap">
 		<h5>Sitemap</h5>
 		<ul>
-			<li><a href="#">Home</a></li>
-			<li><a href="#">About Us</a></li>
-			<li><a href="#">Privacy</a></li>
-			<li><a href="#">Support</a></li>
-			<li><a href="#">FAQ</a></li>
-			<li><a href="#">Careers</a></li>
+			<a href="#">Home</a> | 
+			<a href="#">About Us</a> | 
+			<a href="#">Privacy</a> | 
+			<a href="#">Support</a> |
+			<a href="#">FAQ</a> |
+			<a href="#">Careers</a>
 		</ul>
 	</div>
 </footer>
