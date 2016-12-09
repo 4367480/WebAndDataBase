@@ -58,7 +58,7 @@ var newtaskHTML = function(taskname, tasktag, taskpriority, duedate, reminder, n
 	var newtask = basictask(taskname, tasktag, taskpriority, duedate, reminder, note);
 
 	//Add classes for CSS
-	newtask = addClassHTML(paragraph);
+	newtask = addClassHTML(newtask);
 
 	//Create active button
 	var cb_active = active_checkbox(newtask);
@@ -444,8 +444,13 @@ function removeClass(el, className) {
 }
 
 function addClassHTML(paragraph) {
+	for(var i = 0; i < 5; i++) {
+		removeClass(paragraph, "Priority" + i);
+	}
 	addClass(paragraph, "Priority" + paragraph.dataset.taskpriority);
 
+	removeClass(paragraph, "due");
+	removeClass(paragraph, "overdue");
 	if(paragraph.dataset.taskdue < Date()){
 		addClass(paragraph, "due");
 	} else {
