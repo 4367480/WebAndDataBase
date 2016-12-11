@@ -151,10 +151,12 @@ function settasks() {
 
 	listactivetasks.forEach(function(element) {
 		nodeactivetasks.appendChild(element);
+		//nodeactivetasks.setAttribute( 'class', 'priority_' + get.Priority);
 	})
 
 	listcompletedtasks.forEach(function(element) {
 		nodecompletedtasks.appendChild(element);
+		//nodecompletedtasks.setAttribute( 'class', 'priority_' + get.Priority);
 	})
 
 
@@ -195,7 +197,7 @@ var button_edit = function(newtask){
 		edit_field.appendChild(text_tag);
 		edit_field.appendChild(field_tag);
 
-		//Create tag field
+		//Create priority field
 		var text_priority = document.createTextNode("Priority:");
 		var field_priority = document.createElement("input");
 		field_priority.type = "number";

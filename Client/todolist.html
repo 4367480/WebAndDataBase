@@ -37,9 +37,31 @@ div.header_top{
 div.active_tasks{
 	color:orange;
 }
+
 div.completed_tasks{
 	color: green;
 }
+
+div.priority_1::after {
+	content: " *"
+}
+
+div.priority_2::after {
+	content: " **"
+}
+
+div.priority_3::after {
+	content: " ***"
+}
+
+div.priority_4::after {
+	content: " ****"
+}
+
+div.priority_5::after {
+	content: " *****"
+}
+
 </style>
 <head>
 	<title>TODO Application</title>
