@@ -150,13 +150,11 @@ function settasks() {
 	removechildren(nodecompletedtasks);
 
 	listactivetasks.forEach(function(element) {
-		nodeactivetasks.appendChild(element);
-		//nodeactivetasks.setAttribute( 'class', 'priority_' + get.Priority);
+		nodeactivetasks.appendChild(element);	
 	})
 
 	listcompletedtasks.forEach(function(element) {
 		nodecompletedtasks.appendChild(element);
-		//nodecompletedtasks.setAttribute( 'class', 'priority_' + get.Priority);
 	})
 
 
