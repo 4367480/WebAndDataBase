@@ -20,7 +20,7 @@ var mysqlconnection = mysql.createConnection({
     host: 'localhost',
     user: 'webdata',
     password: 'webdata',
-    database: 'todos'
+    database: 'doesnotexist'
 });
 mysqlconnection.connect();
 
