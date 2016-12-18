@@ -1,0 +1,11 @@
+CREATE TABLE todos (
+    id  INT PRIMARY KEY AUTO_INCREMENT,
+    taskname    VARCHAR(100) NOT NULL,
+    tasktag     VARCHAR(100),
+    taskpriority    VARCHAR(100),
+    taskduedate     DATE,
+    reminder        DATE,
+    note        VARCHAR(100),
+    taskactive  BOOLEAN not null default 0,
+    CONSTRAINT taskpriority_constraint CHECK (taskpriority IN (1, 2, 3, 4, 5))
+);

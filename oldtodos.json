@@ -4,8 +4,8 @@
         "taskname"  : "Example task 1",
         "tasktag"   : "Tag 1",
         "taskpriority"  : "1",
-        "taskduedate"   : "07-12-2016",
-        "reminder"  : "06-12-2016",
+        "taskduedate"   : "2016-12-07",
+        "reminder"  : "2016-12-06",
         "note"  : "note 1",
         "taskactive": true
     },
@@ -14,8 +14,8 @@
         "taskname"  : "Example task 2",
         "tasktag"   : "Tag 2",
         "taskpriority"  : "2",
-        "taskduedate"   : "08-12-2016",
-        "reminder"  : "06-12-2016",
+        "taskduedate"   : "2016-12-08",
+        "reminder"  : "2016-12-06",
         "note"  : "note 2",
         "taskactive": true
     },
@@ -24,8 +24,8 @@
         "taskname"  : "Example task 3",
         "tasktag"   : "Tag 2",
         "taskpriority"  : "3",
-        "taskduedate"   : "07-12-2016",
-        "reminder"  : "05-12-2016",
+        "taskduedate"   : "2016-07-12",
+        "reminder"  : "2016-05-12",
         "note"  : "note 3",
         "taskactive": false
     }

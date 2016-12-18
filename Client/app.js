@@ -402,7 +402,7 @@ function createJSON(task) {
 		taskname: task.dataset.taskname,
 		tasktag: task.dataset.tasktag,
 		taskpriority: task.dataset.taskpriority,
-		taskdue: task.dataset.taskdue,
+		taskduedate: task.dataset.taskdue,
 		reminder: task.dataset.reminder,
 		note: task.dataset.note,
 		taskactive: task.dataset.taskactive
