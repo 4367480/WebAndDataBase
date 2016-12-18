@@ -8,13 +8,22 @@ var url = require("url");
 var http = require("http");
 var app = express();
 var jsonfile = require('jsonfile');
+var mysql = require('mysql');
 
 app.use(express.static(__dirname + "/Client"));
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
 var fs = require('fs');
 var tasks = JSON.parse(fs.readFileSync(pathname, 'utf8'));
+
+var mysqlconnection = mysql.createConnection({
+    host: 'localhost',
+    user: 'webdata',
+    password: 'webdata',
+    database: 'todos'
+});
+mysqlconnection.connect();
+
 
 http.createServer(app).listen(port);
 
