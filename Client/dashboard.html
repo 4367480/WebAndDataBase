@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+	<title>TODO Application</title>
+</head>
+<header>
+	<!--Shows the Logo/Text-->
+	<div class="header_top">
+	<div class="header_1"> 
+		<h1>TODO Application</h1>
+	</div>
+	<!--Shows: Sign up | FAQ | Support -->
+	<div class="header_2">
+		<nav>
+			<a href="#">Log out</a> |
+			<a href="#">FAQ</a> |
+			<a href="#">Support</a>
+		</nav>
+		<br>
+	</div>
+	</div>
+</header>
+
+<main>
+	<!--Sort options-->
+	<div class="main_left">
+		<h2>Sort options</h2>
+
+		<!--Sort options-->
+		<div class="main_left_sortoptions">
+			<button id="ex_1" onclick = "exercise_1(document.getElementById('form_1').value)">
+			Get all todos</button> 
+			<button id="ex_4b" onclick = "exercise_4b(document.getElementById('form_1').value)">
+			Get by priority</button>
+			<button id="ex_4c" onclick = "exercise_4c(document.getElementById('form_1').value)">
+			Get by completion</button>
+			<button id="ex_7" onclick = "exercise_7(document.getElementById('form_1').value)">
+			Get By Tag</button>
+			<button id="ex_8" onclick = "exercise_8(document.getElementById('form_1').value)">
+			Sort by tag and completed</button>
+			<!--<button id="ex" onclick = "">Newest</button>
+			<button id="ex" onclick = "">Oldest</button> -->
+		</div>
+		<div>
+			<form> 
+			<span id = 'span_1'> </span> 
+			<input type="text" id="form_1">	
+			</form>
+		</div>
+	</div>
+
+	<div class="main_middle">
+		<!--Dashboard-->
+		<ul id="div_results">
+		</ul>
+	</div>
+</main>
+
+<footer>
+	<div class="contact">
+		<h5>Contact Us</h5>
+		<p>TODO Application!</p>
+		<p>Mekelweg 4</p>
+		<p>Delft, 1234AB</p>
+	</div>
+	<div class="sitemap">
+		<h5>Sitemap</h5>
+		<ul>
+			<li><a href="#">Home</a></li>
+			<li><a href="#">About Us</a></li>
+			<li><a href="#">Privacy</a></li>
+			<li><a href="#">Support</a></li>
+			<li><a href="#">FAQ</a></li>
+			<li><a href="#">Careers</a></li>
+		</ul>
+	</div>
+
+	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+	<script src = "appdashboard.js"></script>
+</footer>
+
+</html>

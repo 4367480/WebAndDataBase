@@ -70,8 +70,9 @@ app.post("/removetodo", function (req, res) {
 app.post("/edittodo", function (req, res) {
     var editTodo = req.body;
 
-    var mysql_text = 'UPDATE todos set todos.taskname = :editTodo.taskname, todos.tasktag = :editTodo.tasktag, todos.taskpriority = :editTodo.taskpriority, todos.taskduedate = :editTodo.taskduedate, todos.reminder = :editTodo.reminder, todos.note = :editTodo.note, todos.taskactive = :editTodo.taskactive where todos.id = :editTodo.id';
-    var query = mysqlconnection.query(mysql_text, editTodo, function(err, result){
+    var mysql_text = 'UPDATE todos set todos.taskname = ?, todos.tasktag = ?, todos.taskpriority = ?, todos.taskduedate = ?, todos.reminder = ?, todos.note = ?, todos.taskactive = ? where todos.id = ?';
+    var temp = [editTodo.taskname, editTodo.tasktag, editTodo.taskpriority, editTodo.taskduedate, editTodo.reminder, editTodo.note, editTodo.taskactive, editTodo.id];
+    var query = mysqlconnection.query(mysql_text, temp, function(err, result){
     if(err){
         res.json({"message":"An error has occurred"});
         console.error(err);
@@ -79,6 +80,81 @@ app.post("/edittodo", function (req, res) {
     } else {
         res.json({"message":"Entry has been saved"});
         console.log("User has changed a todo");
+    }
+    });
+});
+
+app.post("/exercise_1", function (req, res) {
+    var editTodo = req.body;
+    var name = editTodo.name;
+
+    var query = mysqlconnection.query('select * from todos', function(err, result){
+    if(err){
+        res.json({"message":"An error has occurred"});
+        console.error(err);
+        return;
+    } else {
+        res.json(result);
+    }
+    });
+});
+
+app.post("/exercise_4b", function (req, res) {
+    var editTodo = req.body;
+    var priority = editTodo.priority;
+
+    var query = mysqlconnection.query('select * from todos where taskpriority = ?', priority, function(err, result){
+    if(err){
+        res.json({"message":"An error has occurred"});
+        console.error(err);
+        return;
+    } else {
+        res.json(result);
+    }
+    });
+});
+
+app.post("/exercise_4c", function (req, res) {
+    var editTodo = req.body;
+    var completion = editTodo.completion;
+
+    var query = mysqlconnection.query('select * from todos where taskactive = ?', parseInt(completion), function(err, result){
+    if(err){
+        res.json({"message":"An error has occurred"});
+        console.error(err);
+        return;
+    } else {
+        res.json(result);
+    }
+    });
+});
+
+app.post("/exercise_7", function (req, res) {
+    var editTodo = req.body;
+    var tag = editTodo.tag;
+
+    var query = mysqlconnection.query('select * from todos where todos.tasktag = ?', tag, function(err, result){
+    if(err){
+        res.json({"message":"An error has occurred"});
+        console.error(err);
+        return;
+    } else {
+        res.json(result);
+    }
+    });
+});
+
+app.post("/exercise_8", function (req, res) {
+    var editTodo = req.body;
+    var tag = editTodo.tag;
+
+    var query = mysqlconnection.query('select tasktag as TAG, count(*) as Amount, taskactive as Completed from todos GROUP BY todos.tasktag, todos.taskactive', tag, function(err, result){
+    if(err){
+        res.json({"message":"An error has occurred"});
+        console.error(err);
+        return;
+    } else {
+        res.json(result);
     }
     });
 });

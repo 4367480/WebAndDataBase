@@ -9,3 +9,5 @@ CREATE TABLE todos (
     taskactive  BOOLEAN not null default 0,
     CONSTRAINT taskpriority_constraint CHECK (taskpriority IN (1, 2, 3, 4, 5))
 );
+
+UPDATE todos set taskname = "Task 28", tasktag = "", taskpriority = "", taskduedate = "", reminder = "", note = "", taskactive = "" where todos.id = 27
